@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudioWolf Mobile | Marketing and Productions</title>
+  <meta
+    name="description"
+    content="Mobile-first version of the StudioWolf Marketing and Productions website."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    const savedStudioWolfTheme = sessionStorage.getItem("studiowolf-theme");
+    document.documentElement.dataset.theme = savedStudioWolfTheme === "indian" ? "indian" : "wolf";
+  </script>
+  <style>
+    :root {
+      --bg: #09100d;
+      --panel: rgba(14, 20, 17, 0.82);
+      --panel-strong: rgba(10, 15, 12, 0.92);
+      --text: #f3ede2;
+      --muted: #d0c4af;
+      --accent: #c88a4b;
+      --accent-soft: #e3ad74;
+      --stroke: rgba(244, 225, 194, 0.15);
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.34);
+    }
+
+    html[data-theme="indian"] {
+      --bg: #0b0d12;
+      --panel: rgba(16, 21, 30, 0.84);
+      --panel-strong: rgba(10, 14, 21, 0.94);
+      --text: #f4f7fb;
+      --muted: #c6d1dc;
+      --accent: #8ea8c8;
+      --accent-soft: #d8e4f1;
+      --stroke: rgba(217, 229, 242, 0.16);
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(200, 138, 75, 0.12), transparent 28%),
+        linear-gradient(180deg, #020303 0%, #08100d 100%);
+    }
+
+    html[data-theme="indian"] body {
+      background:
+        radial-gradient(circle at 74% 14%, rgba(142, 168, 200, 0.18), transparent 24%),
+        radial-gradient(circle at 18% 14%, rgba(216, 228, 241, 0.12), transparent 28%),
+        linear-gradient(180deg, #050608 0%, #141a24 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .mobile-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      gap: 0.7rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 248, 240, 0.96);
+      border-bottom: 1px solid rgba(22, 17, 13, 0.08);
+    }
+
+    html[data-theme="indian"] .mobile-header {
+      background: rgba(233, 239, 246, 0.95);
+      border-bottom: 1px solid rgba(31, 43, 59, 0.08);
+    }
+
+    .mobile-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .mobile-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .mobile-brand-mark {
+      width: 3.2rem;
+      height: 3.2rem;
+      padding: 0.15rem;
+      border-radius: 0.55rem;
+      overflow: hidden;
+    }
+
+    .mobile-brand-text {
+      color: #16110d;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    html[data-theme="indian"] .mobile-brand-text {
+      color: #1d2a39;
+    }
+
+    .mobile-nav-link {
+      color: #3f3125;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    html[data-theme="indian"] .mobile-nav-link {
+      color: #44607b;
+    }
+
+    .mobile-theme-switcher {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .mobile-theme-label {
+      color: #4e3d2e;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    html[data-theme="indian"] .mobile-theme-label {
+      color: #58708a;
+    }
+
+    .mobile-theme-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .mobile-theme-toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .mobile-theme-track {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 4rem;
+      height: 2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 45, 35, 0.16);
+      background: rgba(255, 255, 255, 0.52);
+      cursor: pointer;
+    }
+
+    html[data-theme="indian"] .mobile-theme-track {
+      border-color: rgba(61, 85, 111, 0.18);
+      background: rgba(245, 249, 252, 0.66);
+    }
+
+    .mobile-theme-thumb {
+      position: absolute;
+      left: 0.2rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+      transition: transform 200ms ease;
+    }
+
+    .mobile-theme-toggle input:checked + .mobile-theme-track .mobile-theme-thumb {
+      transform: translateX(1.95rem);
+    }
+
+    .mobile-hero {
+      min-height: calc(100vh - 4.9rem);
+      padding: 1rem 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(180deg, rgba(8, 13, 11, 0.42), rgba(8, 13, 11, 0.58)),
+        url("Wolf wallpaper business.jpg") 64% center / cover no-repeat;
+    }
+
+    html[data-theme="indian"] .mobile-hero {
+      background:
+        linear-gradient(180deg, rgba(6, 8, 12, 0.46), rgba(6, 8, 12, 0.62)),
+        url("newest wallpaper idea.jpg") center center / cover no-repeat;
+    }
+
+    .mobile-hero-card,
+    .mobile-card,
+    .mobile-faq-item,
+    .mobile-consultation {
+      border: 1px solid var(--stroke);
+      border-radius: 1.35rem;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-hero-card {
+      width: 100%;
+      padding: 1.25rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow,
+    .mobile-label {
+      margin: 0 0 0.7rem;
+      color: var(--accent-soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      line-height: 0.95;
+    }
+
+    h1 {
+      font-size: clamp(2.75rem, 11vw, 4.25rem);
+      max-width: 9ch;
+    }
+
+    h2 {
+      font-size: 2.35rem;
+      margin-bottom: 0.95rem;
+    }
+
+    h3 {
+      font-size: 1.7rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .mobile-hero-card p,
+    .mobile-card p,
+    .mobile-faq-item p,
+    li {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .mobile-actions {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.15rem;
+      padding: 0.8rem 1.15rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+      color: #1f140b;
+    }
+
+    html[data-theme="indian"] .button-primary {
+      color: #10151b;
+    }
+
+    .button-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(244, 225, 194, 0.2);
+    }
+
+    .mobile-main {
+      padding: 1rem 1rem 6rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .mobile-card,
+    .mobile-consultation {
+      padding: 1.2rem;
+    }
+
+    .mobile-list {
+      margin: 0.8rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .mobile-list li + li {
+      margin-top: 0.45rem;
+    }
+
+    .mobile-faq {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .mobile-faq-item {
+      padding: 1.05rem 1.1rem;
+    }
+
+    .mobile-faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .mobile-faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-faq-item p {
+      margin: 0.9rem 0 0;
+    }
+
+    .mobile-floating {
+      position: fixed;
+      right: 0.85rem;
+      bottom: 0.85rem;
+      display: grid;
+      gap: 0.7rem;
+      z-index: 30;
+    }
+
+    .mobile-floating .button {
+      min-width: 8rem;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body>
+  <header class="mobile-header">
+    <div class="mobile-header-top">
+      <a class="mobile-brand" href="#">
+      <span class="mobile-brand-mark">
+        <img src="emblem-transparent.png" alt="StudioWolf logo">
+      </span>
+      <span class="mobile-brand-text">StudioWolf Marketing and Productions</span>
+    </a>
+      <a class="mobile-nav-link" href="#consultation">Contact</a>
+    </div>
+    <div class="mobile-theme-switcher" aria-label="Website version toggle">
+      <span class="mobile-theme-label">Wolf version</span>
+      <label class="mobile-theme-toggle">
+        <input type="checkbox" data-theme-toggle aria-label="Switch website version">
+        <span class="mobile-theme-track">
+          <span class="mobile-theme-thumb"></span>
+        </span>
+      </label>
+      <span class="mobile-theme-label">Plan B</span>
+    </div>
+  </header>
+
+  <section class="mobile-hero" id="top">
+    <div class="mobile-hero-card">
+      <p class="eyebrow">Marketing. Production. Momentum.</p>
+      <h1>Grow your business and lead the pack.</h1>
+      <p>We aim to take your hard work and show it to the world, helping your business be seen, remembered, and chosen.</p>
+      <div class="mobile-actions">
+        <a class="button button-primary" href="book-consultation.html">Book a consultation</a>
+        <a class="button button-secondary" href="pricing-calculator.html">See video content</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="mobile-main">
+    <section class="mobile-card" id="services">
+      <p class="mobile-label">Services</p>
+      <h2>Creative and production support built for mobile-first visitors.</h2>
+      <h3>Video Production</h3>
+      <p>On-site filming, drone footage, music videos, and social-first reels that help your brand stand out quickly.</p>
+      <h3>Editing and Post</h3>
+      <p>Clean edits, color grading, titles, and polished post-production that makes content feel launch-ready.</p>
+      <h3>Marketing Support</h3>
+      <p>Content planning, scheduling, captions, hashtags, and social media support that keeps your brand active and visible.</p>
+    </section>
+
+    <section class="mobile-card" id="pricing">
+      <p class="mobile-label">Pricing</p>
+      <h2>Quick pricing highlights.</h2>
+      <ul class="mobile-list">
+        <li>On-site filming: $100 per hour, $400 half day, $700 full day</li>
+        <li>Basic edit: $100 to $150</li>
+        <li>Portrait or promo session: $200</li>
+        <li>Podcast episode package: $350</li>
+        <li>Starter social management: $100 per month</li>
+        <li>Content pack: $250</li>
+      </ul>
+      <div class="mobile-actions">
+        <a class="button button-primary" href="pricing-calculator.html">Open pricing calculator</a>
+      </div>
+    </section>
+
+    <section class="mobile-card">
+      <p class="mobile-label">FAQ</p>
+      <h2>Common questions.</h2>
+      <div class="mobile-faq" id="faq">
+        <details class="mobile-faq-item">
+          <summary>What kinds of businesses do you work with?</summary>
+          <p>StudioWolf works with local businesses, service brands, artists, and growing companies that want stronger marketing, sharper visuals, and better content.</p>
+        </details>
+        <details class="mobile-faq-item">
+          <summary>Can I book just one service?</summary>
+          <p>Yes. You can book individual services like filming, editing, photography, podcast production, or social media support.</p>
+        </details>
+        <details class="mobile-faq-item">
+          <summary>How do I get started?</summary>
+          <p>Use the consultation page or the pricing calculator to narrow down the right fit, then reach out and we can build the next step together.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="mobile-consultation" id="consultation">
+      <p class="mobile-label">Consultation</p>
+      <h2>Find out how we can strengthen your business.</h2>
+      <p>Ready to sharpen your brand, launch a campaign, or produce standout content? Reach out and start the conversation.</p>
+      <div class="mobile-actions">
+        <a class="button button-primary" href="book-consultation.html">Book a consultation</a>
+        <a class="button button-secondary" href="virtual-helpdesk.html">Helpdesk</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="mobile-floating" aria-label="Quick actions">
+    <a class="button button-secondary" href="virtual-helpdesk.html">Helpdesk</a>
+    <a class="button button-primary" href="book-consultation.html">Contact</a>
+  </div>
+  <script src="theme-toggle.js"></script>
+</body>
+</html>

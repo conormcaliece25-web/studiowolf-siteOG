@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing Calculator | StudioWolf Marketing and Productions</title>
+  <meta
+    name="description"
+    content="Estimate StudioWolf service pricing with a simple calculator."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    const savedStudioWolfTheme = sessionStorage.getItem("studiowolf-theme");
+    document.documentElement.dataset.theme = savedStudioWolfTheme === "indian" ? "indian" : "wolf";
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <nav class="site-nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="emblem-transparent.png" alt="StudioWolf logo">
+        </span>
+        <span class="brand-text">StudioWolf Marketing and Productions</span>
+      </a>
+      <div class="theme-switcher" aria-label="Website version toggle">
+        <span class="theme-switcher-label">Wolf version</span>
+        <label class="theme-toggle">
+          <input type="checkbox" data-theme-toggle aria-label="Switch website version">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-thumb"></span>
+          </span>
+        </label>
+        <span class="theme-switcher-label">Plan B</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html#services" data-symbol="S" aria-label="Services">Services</a>
+        <a href="index.html#faq" data-symbol="?" aria-label="FAQ">FAQ</a>
+        <a href="index.html#consultation" data-symbol="C" aria-label="Contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="pricing-hero" id="top">
+    <div class="hero-content">
+      <div class="hero-copy consultation-hero-copy">
+        <p class="eyebrow">Pricing Calculator</p>
+        <h1>Any budget, we can make it work.</h1>
+        <p class="hero-text">Pick the services you need and the calculator will give you a quick estimate based on the published pricing on the site.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#pricing-calculator-section">Start building your estimate</a>
+          <a class="button button-secondary" href="book-consultation.html">Book a consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section calculator-page" id="pricing-calculator-section">
+      <div class="section-heading">
+        <p class="section-label">Pricing Calculator</p>
+        <h2>Build a quick estimate based on the services you need.</h2>
+        <p class="page-intro">Pick the services you need and the calculator will give you a quick estimate based on the published pricing on the site.</p>
+      </div>
+
+      <div class="calculator-layout">
+        <form class="calculator-card" id="pricing-calculator">
+          <label class="calculator-field">
+            <span>Service type</span>
+            <select id="service-type">
+              <option value="onsite-filming">On-site filming</option>
+              <option value="studio-recording">Studio recording</option>
+              <option value="podcast-audio-hourly">Podcast recording and audio editing</option>
+              <option value="drone-basic">Drone filming</option>
+              <option value="drone-half-day">Drone half-day package</option>
+              <option value="drone-full-day">Drone full-day package</option>
+              <option value="edited-short-video-addon">Edited short video add-on</option>
+              <option value="edited-music-video-addon">Edited full music video add-on</option>
+              <option value="music-video">Directed music video</option>
+              <option value="reels-shorts">Social media reel / short</option>
+              <option value="basic-edit">Basic edit</option>
+              <option value="full-edit">Full edit</option>
+              <option value="color-grading">Color grading only</option>
+              <option value="motion-graphics">Motion graphics / titles</option>
+              <option value="portrait-session">Portrait / promo session</option>
+              <option value="event-photography">Event photography</option>
+              <option value="product-photography">Product photography</option>
+              <option value="mixing-mastering">Mixing & mastering</option>
+              <option value="podcast-package">Podcast episode package</option>
+              <option value="starter-social">Starter social management</option>
+              <option value="growth-social">Growth social management</option>
+              <option value="pro-social">Pro social management</option>
+              <option value="content-pack">Content pack</option>
+              <option value="full-social-management">Full social management</option>
+            </select>
+          </label>
+
+          <div class="calculator-rate-note" id="rate-note">$100 per hour</div>
+
+          <label class="calculator-field" id="multiplier-field">
+            <span id="multiplier-label">Hours of work</span>
+            <input id="hour-multiplier" type="number" min="1" value="1">
+          </label>
+
+          <label class="calculator-field checkbox-field">
+            <input id="rush-addon" type="checkbox">
+            <span>Add a 15% rush estimate</span>
+          </label>
+
+          <button class="button button-primary" type="submit">Add to cart</button>
+        </form>
+
+        <div class="calculator-card calculator-result">
+          <p class="plan">Service List</p>
+          <div id="cart-items" class="cart-items">
+            <p class="cart-empty">No services added yet.</p>
+          </div>
+          <h2 id="estimate-total">$0</h2>
+          <p id="monthly-total" class="monthly-total is-hidden">$0/month in recurring services</p>
+          <p class="calculator-note">This is a planning estimate, not a final quote. Exact pricing can vary by scope, revisions, scheduling, and production needs.</p>
+          <a class="button button-secondary" href="index.html#consultation">Book a consultation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="floating-actions" aria-label="Quick actions">
+    <a class="floating-button floating-button-secondary" href="virtual-helpdesk.html">Helpdesk</a>
+    <a class="floating-button floating-button-primary" href="book-consultation.html">Contact</a>
+  </div>
+
+  <script>
+    const pricingData = {
+      "onsite-filming": { label: "On-site filming", price: 100, mode: "hours", unitLabel: "hour", note: "$100 per hour" },
+      "studio-recording": { label: "Studio recording", price: 50, mode: "hours", unitLabel: "hour", note: "$50 per hour" },
+      "podcast-audio-hourly": { label: "Podcast recording and audio editing", price: 50, mode: "hours", unitLabel: "hour", note: "$50 per hour" },
+      "drone-basic": { label: "Drone filming package", price: 150, mode: "flat", unitLabel: "package", note: "$150 flat" },
+      "drone-half-day": { label: "Drone half-day package", price: 250, mode: "flat", unitLabel: "package", note: "$250 flat" },
+      "drone-full-day": { label: "Drone full-day package", price: 500, mode: "flat", unitLabel: "package", note: "$500 flat" },
+      "edited-short-video-addon": { label: "Edited short video add-on", price: 100, mode: "flat", unitLabel: "add-on", note: "$100 add-on" },
+      "edited-music-video-addon": { label: "Edited full music video add-on", price: 350, mode: "flat", unitLabel: "add-on", note: "$300 to $400 range, using $350 midpoint" },
+      "music-video": { label: "Directed music video", price: 900, mode: "flat", unitLabel: "project", note: "$600 to $1,200 range, using $900 midpoint" },
+      "reels-shorts": { label: "Social media reel / short", price: 150, mode: "flat", unitLabel: "video", note: "$150 each" },
+      "basic-edit": { label: "Basic edit", price: 125, mode: "flat", unitLabel: "project", note: "$100 to $150 range, using $125 midpoint" },
+      "full-edit": { label: "Full edit", price: 325, mode: "flat", unitLabel: "project", note: "$250 to $400 range, using $325 midpoint" },
+      "color-grading": { label: "Color grading only", price: 113, mode: "flat", unitLabel: "project", note: "$75 to $150 range, using $113 midpoint" },
+      "motion-graphics": { label: "Motion graphics / titles", price: 100, mode: "flat", unitLabel: "project", note: "Starts at $100 per project" },
+      "portrait-session": { label: "Portrait / promo session", price: 200, mode: "flat", unitLabel: "session", note: "$200 per session" },
+      "event-photography": { label: "Event photography", price: 400, mode: "flat", unitLabel: "event", note: "$300 to $500 range, using $400 midpoint" },
+      "product-photography": { label: "Product photography", price: 100, mode: "flat", unitLabel: "setup", note: "$100 per setup" },
+      "mixing-mastering": { label: "Mixing & mastering", price: 150, mode: "flat", unitLabel: "track", note: "$100 to $200 range, using $150 midpoint" },
+      "podcast-package": { label: "Podcast episode package", price: 350, mode: "flat", unitLabel: "episode", note: "$350 per episode" },
+      "starter-social": { label: "Starter social management", price: 100, mode: "months", unitLabel: "month", note: "$100 per month" },
+      "growth-social": { label: "Growth social management", price: 200, mode: "months", unitLabel: "month", note: "$200 per month" },
+      "pro-social": { label: "Pro social management", price: 300, mode: "months", unitLabel: "month", note: "$300 per month" },
+      "content-pack": { label: "Content pack", price: 250, mode: "flat", unitLabel: "pack", note: "$250 per pack" },
+      "full-social-management": { label: "Full social management", price: 550, mode: "months", unitLabel: "month", note: "$500 to $600 range, using $550 midpoint" }
+    };
+
+    const form = document.querySelector("#pricing-calculator");
+    const serviceType = document.querySelector("#service-type");
+    const rateNote = document.querySelector("#rate-note");
+    const multiplierField = document.querySelector("#multiplier-field");
+    const multiplierLabel = document.querySelector("#multiplier-label");
+    const hourMultiplier = document.querySelector("#hour-multiplier");
+    const rushAddon = document.querySelector("#rush-addon");
+    const estimateTotal = document.querySelector("#estimate-total");
+    const monthlyTotal = document.querySelector("#monthly-total");
+    const cartItems = document.querySelector("#cart-items");
+    const cart = [];
+
+    const formatCurrency = (amount) => {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0
+      }).format(amount);
+    };
+
+    const updateServiceInputs = () => {
+      const selected = pricingData[serviceType.value];
+      rateNote.textContent = selected.note;
+
+      if (selected.mode === "hours") {
+        multiplierLabel.textContent = "Hours of work";
+        hourMultiplier.value = hourMultiplier.value || 1;
+        multiplierField.classList.remove("is-hidden");
+      } else if (selected.mode === "months") {
+        multiplierLabel.textContent = "Months of service";
+        hourMultiplier.value = hourMultiplier.value || 1;
+        multiplierField.classList.remove("is-hidden");
+      } else {
+        multiplierLabel.textContent = "Hours of work";
+        hourMultiplier.value = 1;
+        multiplierField.classList.add("is-hidden");
+      }
+    };
+
+    const renderCart = () => {
+      if (!cart.length) {
+        cartItems.innerHTML = '<p class="cart-empty">No services added yet.</p>';
+        estimateTotal.textContent = "$0";
+        monthlyTotal.textContent = "$0/month in recurring services";
+        monthlyTotal.classList.add("is-hidden");
+        return;
+      }
+
+      cartItems.innerHTML = cart.map((item) => `
+        <div class="cart-item">
+          <div>
+            <p class="cart-item-title">${item.label}</p>
+            <p class="cart-item-meta">${item.rush ? "Rush estimate included" : "Standard estimate"}</p>
+          </div>
+          <div class="cart-item-actions">
+            <strong>${formatCurrency(item.price)}</strong>
+            <button class="cart-delete" type="button" data-cart-id="${item.id}">Delete</button>
+          </div>
+        </div>
+      `).join("");
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const recurringMonthlyTotal = cart.reduce((sum, item) => {
+        return item.mode === "months" ? sum + item.monthlyPrice : sum;
+      }, 0);
+      estimateTotal.textContent = formatCurrency(total);
+
+      if (recurringMonthlyTotal > 0) {
+        monthlyTotal.textContent = `${formatCurrency(recurringMonthlyTotal)}/month in recurring services`;
+        monthlyTotal.classList.remove("is-hidden");
+      } else {
+        monthlyTotal.textContent = "$0/month in recurring services";
+        monthlyTotal.classList.add("is-hidden");
+      }
+
+      cartItems.querySelectorAll(".cart-delete").forEach((button) => {
+        button.addEventListener("click", () => {
+          const id = Number(button.getAttribute("data-cart-id"));
+          const index = cart.findIndex((item) => item.id === id);
+
+          if (index >= 0) {
+            cart.splice(index, 1);
+            renderCart();
+          }
+        });
+      });
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const selected = pricingData[serviceType.value];
+      const multiplier = selected.mode === "hours" || selected.mode === "months"
+        ? Math.max(1, Number(hourMultiplier.value) || 1)
+        : 1;
+      const basePrice = selected.price * multiplier;
+      const price = rushAddon.checked ? basePrice * 1.15 : basePrice;
+
+      const unitText = selected.mode === "hours"
+        ? `${multiplier} ${selected.unitLabel}${multiplier > 1 ? "s" : ""}`
+        : selected.mode === "months"
+          ? `${multiplier} ${selected.unitLabel}${multiplier > 1 ? "s" : ""}`
+          : selected.unitLabel;
+
+      cart.push({
+        id: Date.now() + Math.random(),
+        label: `${selected.label}${selected.mode === "flat" ? "" : ` (${unitText})`}`,
+        price,
+        rush: rushAddon.checked,
+        mode: selected.mode,
+        monthlyPrice: selected.mode === "months" ? selected.price : 0
+      });
+
+      renderCart();
+    });
+
+    serviceType.addEventListener("change", updateServiceInputs);
+    updateServiceInputs();
+    renderCart();
+
+    const heroSection = document.querySelector(".hero, .consultation-hero, .pricing-hero, .calculator-page");
+    const floatingActions = document.querySelector(".floating-actions");
+
+    if (heroSection && floatingActions) {
+      const toggleFloatingActions = () => {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        floatingActions.classList.toggle("is-visible", heroBottom <= 120);
+      };
+
+      toggleFloatingActions();
+      window.addEventListener("scroll", toggleFloatingActions, { passive: true });
+      window.addEventListener("resize", toggleFloatingActions);
+    }
+  </script>
+  <script src="side-nav.js"></script>
+  <script src="theme-toggle.js"></script>
+</body>
+</html>

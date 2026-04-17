@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Helpdesk | StudioWolf Marketing and Productions</title>
+  <meta
+    name="description"
+    content="Placeholder page for the StudioWolf virtual helpdesk."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    const savedStudioWolfTheme = sessionStorage.getItem("studiowolf-theme");
+    document.documentElement.dataset.theme = savedStudioWolfTheme === "indian" ? "indian" : "wolf";
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <nav class="site-nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="emblem-transparent.png" alt="StudioWolf logo">
+        </span>
+        <span class="brand-text">StudioWolf Marketing and Productions</span>
+      </a>
+      <div class="theme-switcher" aria-label="Website version toggle">
+        <span class="theme-switcher-label">Wolf version</span>
+        <label class="theme-toggle">
+          <input type="checkbox" data-theme-toggle aria-label="Switch website version">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-thumb"></span>
+          </span>
+        </label>
+        <span class="theme-switcher-label">Plan B</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html#services" data-symbol="S" aria-label="Services">Services</a>
+        <a href="index.html#faq" data-symbol="?" aria-label="FAQ">FAQ</a>
+        <a href="book-consultation.html" data-symbol="C" aria-label="Contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section calculator-page">
+      <div class="section-heading">
+        <p class="section-label">Virtual Helpdesk</p>
+        <h1>Help is on the way.</h1>
+        <p class="page-intro">
+          This is a placeholder for the StudioWolf virtual helpdesk. It will eventually guide visitors toward the right service, package, or next step.
+        </p>
+      </div>
+
+      <div class="calculator-card helpdesk-placeholder">
+        <p class="plan">Coming Soon</p>
+        <h2>Placeholder</h2>
+      </div>
+    </section>
+  </main>
+
+  <div class="floating-actions" aria-label="Quick actions">
+    <a class="floating-button floating-button-secondary" href="virtual-helpdesk.html">Helpdesk</a>
+    <a class="floating-button floating-button-primary" href="book-consultation.html">Contact</a>
+  </div>
+  <script>
+    const heroSection = document.querySelector(".hero, .consultation-hero, .pricing-hero, .calculator-page");
+    const floatingActions = document.querySelector(".floating-actions");
+
+    if (heroSection && floatingActions) {
+      const toggleFloatingActions = () => {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        floatingActions.classList.toggle("is-visible", heroBottom <= 120);
+      };
+
+      toggleFloatingActions();
+      window.addEventListener("scroll", toggleFloatingActions, { passive: true });
+      window.addEventListener("resize", toggleFloatingActions);
+    }
+  </script>
+  <script src="side-nav.js"></script>
+  <script src="theme-toggle.js"></script>
+</body>
+</html>

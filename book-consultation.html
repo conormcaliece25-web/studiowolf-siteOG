@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book A Consultation | StudioWolf Marketing and Productions</title>
+  <meta
+    name="description"
+    content="Book a consultation with StudioWolf Marketing and Productions to plan your next marketing, production, or content project."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    const savedStudioWolfTheme = sessionStorage.getItem("studiowolf-theme");
+    document.documentElement.dataset.theme = savedStudioWolfTheme === "indian" ? "indian" : "wolf";
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <nav class="site-nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="emblem-transparent.png" alt="StudioWolf logo">
+        </span>
+        <span class="brand-text">StudioWolf Marketing and Productions</span>
+      </a>
+      <div class="theme-switcher" aria-label="Website version toggle">
+        <span class="theme-switcher-label">Wolf version</span>
+        <label class="theme-toggle">
+          <input type="checkbox" data-theme-toggle aria-label="Switch website version">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-thumb"></span>
+          </span>
+        </label>
+        <span class="theme-switcher-label">Plan B</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html#services" data-symbol="S" aria-label="Services">Services</a>
+        <a href="index.html#faq" data-symbol="?" aria-label="FAQ">FAQ</a>
+        <a href="book-consultation.html" data-symbol="C" aria-label="Contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="consultation-hero" id="top">
+    <div class="hero-content">
+      <div class="hero-copy consultation-hero-copy">
+        <p class="eyebrow">Book A Consultation</p>
+        <h1>Let's start this journey together</h1>
+        <p class="hero-text">
+          Share your goals, timeline, and the kind of support you need. This page gives StudioWolf the right starting point for a focused consultation.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#consultation-form">Start your request</a>
+          <a class="button button-secondary" href="pricing-calculator.html">Open pricing calculator</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section calculator-page" id="consultation-form">
+      <div class="section-heading">
+        <p class="section-label">Consultation Form</p>
+        <h2>Tell StudioWolf what you need, and we'll shape the next steps with you.</h2>
+        <p class="page-intro">
+          Give a few key details below and StudioWolf can recommend the right service, production approach, or content plan.
+        </p>
+      </div>
+
+      <div class="consultation-page-layout">
+        <form class="calculator-card consultation-form">
+          <label class="calculator-field">
+            <span>Your name</span>
+            <input type="text" name="name" placeholder="Enter your name">
+          </label>
+
+          <label class="calculator-field">
+            <span>Email address</span>
+            <input type="email" name="email" placeholder="Enter your email">
+          </label>
+
+          <label class="calculator-field">
+            <span>Business or brand name</span>
+            <input type="text" name="business" placeholder="Who are we building for?">
+          </label>
+
+          <label class="calculator-field">
+            <span>What service are you interested in?</span>
+            <select name="service">
+              <option>Video production</option>
+              <option>Editing & post-production</option>
+              <option>Photography</option>
+              <option>Audio / podcast production</option>
+              <option>Social media management</option>
+              <option>I need help deciding</option>
+            </select>
+          </label>
+
+          <label class="calculator-field">
+            <span>Estimated budget</span>
+            <select name="budget">
+              <option>Under $500</option>
+              <option>$500 to $1,000</option>
+              <option>$1,000 to $2,500</option>
+              <option>$2,500+</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+
+          <label class="calculator-field">
+            <span>Project details</span>
+            <textarea name="details" rows="6" placeholder="Tell StudioWolf what you need, what your goals are, and any timeline details."></textarea>
+          </label>
+
+          <div class="consultation-form-actions">
+            <a class="button button-primary" href="mailto:hello@studiowolfmarketing.com?subject=StudioWolf%20Consultation%20Request">Send consultation request</a>
+            <a class="button button-secondary" href="pricing-calculator.html">Open pricing calculator</a>
+          </div>
+        </form>
+
+        <div class="calculator-card consultation-side">
+          <p class="plan">What Happens Next</p>
+          <h2>Simple, clear, and built around your goals.</h2>
+          <div class="consultation-steps">
+            <div class="consultation-step">
+              <strong>1. Share the project</strong>
+              <p>Outline what you need, what kind of content or production support you want, and where you are in the process.</p>
+            </div>
+            <div class="consultation-step">
+              <strong>2. Get direction</strong>
+              <p>StudioWolf will help identify the best service, scope, or package based on your needs and budget.</p>
+            </div>
+            <div class="consultation-step">
+              <strong>3. Build the plan</strong>
+              <p>From there, you can move into production, content support, or strategy with a clearer roadmap.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="floating-actions" aria-label="Quick actions">
+    <a class="floating-button floating-button-secondary" href="virtual-helpdesk.html">Helpdesk</a>
+    <a class="floating-button floating-button-primary" href="book-consultation.html">Contact</a>
+  </div>
+  <script>
+    const heroSection = document.querySelector(".hero, .consultation-hero, .calculator-page");
+    const floatingActions = document.querySelector(".floating-actions");
+
+    if (heroSection && floatingActions) {
+      const toggleFloatingActions = () => {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        floatingActions.classList.toggle("is-visible", heroBottom <= 120);
+      };
+
+      toggleFloatingActions();
+      window.addEventListener("scroll", toggleFloatingActions, { passive: true });
+      window.addEventListener("resize", toggleFloatingActions);
+    }
+  </script>
+  <script src="side-nav.js"></script>
+  <script src="theme-toggle.js"></script>
+</body>
+</html>
